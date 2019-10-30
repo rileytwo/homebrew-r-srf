@@ -35,7 +35,7 @@ class R < Formula
   def install
     # Fix dyld: lazy symbol binding failed: Symbol not found: _clock_gettime
     if MacOS.version == "10.11" && MacOS::Xcode.installed? &&
-       MacOS::Xcode.version >= "8.0"
+        MacOS::Xcode.version >= "8.0"
       ENV["ac_cv_have_decl_clock_gettime"] = "no"
     end
 
@@ -52,8 +52,13 @@ class R < Formula
       "--enable-R-shlib",
       "SED=/usr/bin/sed", # don't remember Homebrew's sed shim
       "--with-tcltk", # SRF - Add tcl-tk support.
-      "--with-tcl-config=/System/Library/Frameworks/Tcl.framework/tclConfig.sh", # SRF - Point to system tcl config file (requires Command Line tools to be installed).
-      "--with-tk-config=/System/Library/Frameworks/Tk.framework/tkConfig.sh" # SRF - Point to system tk config file (requires Command Line tools to be installed).
+
+      #"--with-tcl-config=/System/Library/Frameworks/Tcl.framework/tclConfig.sh", # SRF - Point to system tcl config file (requires Command Line tools to be installed).
+      "--with-tcl-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework/tclConfig.sh",
+
+      #"--with-tk-config=/System/Library/Frameworks/Tk.framework/tkConfig.sh" # SRF - Point to system tk config file (requires Command Line tools to be installed).
+      "--with-tk-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/tkConfig.sh"
+
     ]
 
     if build.with? "openblas"
@@ -116,7 +121,7 @@ class R < Formula
 
     # avoid triggering mandatory rebuilds of r when gcc is upgraded
     inreplace lib/"R/etc/Makeconf", Formula["gcc"].prefix.realpath,
-                                    Formula["gcc"].opt_prefix
+      Formula["gcc"].opt_prefix
   end
 
   def post_install
@@ -134,6 +139,6 @@ class R < Formula
     testpath.install resource("gss")
     system bin/"R", "CMD", "INSTALL", "--library=.", Dir["gss*"].first
     assert_predicate testpath/"gss/libs/gss.so", :exist?,
-                     "Failed to install gss package"
+      "Failed to install gss package"
   end
 end
