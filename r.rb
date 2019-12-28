@@ -52,11 +52,9 @@ class R < Formula
       "--enable-R-shlib",
       "SED=/usr/bin/sed", # don't remember Homebrew's sed shim
       "--with-tcltk", # SRF - Add tcl-tk support.
-
       #"--with-tcl-config=/System/Library/Frameworks/Tcl.framework/tclConfig.sh", # SRF - Point to system tcl config file (requires Command Line tools to be installed).
-      "--with-tcl-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework/tclConfig.sh",
-
       #"--with-tk-config=/System/Library/Frameworks/Tk.framework/tkConfig.sh" # SRF - Point to system tk config file (requires Command Line tools to be installed).
+      "--with-tcl-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework/tclConfig.sh",
       "--with-tk-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/tkConfig.sh"
 
     ]
