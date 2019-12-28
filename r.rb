@@ -35,7 +35,7 @@ class R < Formula
   def install
     # Fix dyld: lazy symbol binding failed: Symbol not found: _clock_gettime
     if MacOS.version == "10.11" && MacOS::Xcode.installed? &&
-        MacOS::Xcode.version >= "8.0"
+       MacOS::Xcode.version >= "8.0"
       ENV["ac_cv_have_decl_clock_gettime"] = "no"
     end
 
@@ -121,7 +121,7 @@ class R < Formula
 
     # avoid triggering mandatory rebuilds of r when gcc is upgraded
     inreplace lib/"R/etc/Makeconf", Formula["gcc"].prefix.realpath,
-      Formula["gcc"].opt_prefix
+                                    Formula["gcc"].opt_prefix
   end
 
   def post_install
@@ -139,6 +139,6 @@ class R < Formula
     testpath.install resource("gss")
     system bin/"R", "CMD", "INSTALL", "--library=.", Dir["gss*"].first
     assert_predicate testpath/"gss/libs/gss.so", :exist?,
-      "Failed to install gss package"
+                     "Failed to install gss package"
   end
 end
