@@ -19,9 +19,12 @@ class R < Formula
   depends_on :x11 # SRF - X11 necessary for tcl-tk since tk.h includes X11 headers. See section A.2.1 Tcl/Tk at < https://cran.r-project.org/doc/manuals/r-release/R-admin.html >
   depends_on "texinfo" => :optional
   depends_on "libtiff" => :optional
-  depends_on "sethrfore/r-srf/cairo" => :optional # SRF - Cairo must be build with with X11 support. Use brew install sethrfore/r-srf/cairo
+  depends_on "rileytwo/r-srf/cairo" => :optional # SRF - Cairo must be build with with X11 support. Use brew install rileytwo/r-srf/cairo
   depends_on "icu4c" => :optional
-  # depends_on "pango" => :optional
+  depends_on "pango" => :optional
+
+  # RR - Add brew's tcl-tk
+  depends_on "tcl-tk" => :optional
 
   # needed to preserve executable permissions on files without shebangs
   skip_clean "lib/R/bin"
@@ -52,12 +55,8 @@ class R < Formula
       "--enable-R-shlib",
       "SED=/usr/bin/sed", # don't remember Homebrew's sed shim
       "--with-tcltk", # SRF - Add tcl-tk support.
-      #"--with-tcl-config=/System/Library/Frameworks/Tcl.framework/tclConfig.sh", # SRF - Point to system tcl config file (requires Command Line tools to be installed).
-      #"--with-tk-config=/System/Library/Frameworks/Tk.framework/tkConfig.sh" # SRF - Point to system tk config file (requires Command Line tools to be installed).
-      #"--with-tcl-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework/tclConfig.sh",
-      #"--with-tk-config=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/tkConfig.sh"
-      "--with-tcl-config=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework/tclConfig.sh", # SRF - Point to system tcl config file (requires Command Line tools to be installed).
-      "--with-tk-config=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/tkConfig.sh", # SRF - Point to system tk config file (requires Command Line tools to be installed).
+      "--with-tcl-config=/usr/local/opt/tcl-tk/lib/tclConfig.sh", # RR - Point to homebrew tcl config file
+      "--with-tk-config=/usr/local/opt/tcl-tk/lib/tkConfig.sh" # RR - Point to homebrew tk config file
 
     ]
 
