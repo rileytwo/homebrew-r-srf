@@ -3,7 +3,7 @@ class Cairo < Formula
   homepage "https://cairographics.org/"
   url "https://cairographics.org/releases/cairo-1.16.0.tar.xz"
   sha256 "5e7b29b3f113ef870d1e3ecf8adf21f923396401604bda16d44be45e66052331"
-  revision 2
+  revision 3
 
   # bottle do
   #   sha256 "5bdc28de8e5a615ab664d43f7f322ed02d58071171415bb6e2750f486b9465e2" => :high_sierra
@@ -28,29 +28,20 @@ class Cairo < Formula
   depends_on "pixman"
 
   def install
-    args = %W[
-      --disable-dependency-tracking
-      --prefix=#{prefix}
-      --enable-gobject=yes
-      --enable-svg=yes
-      --enable-tee=yes
-      --enable-quartz-image
-      --enable-xcb=yes
-      --enable-xlib=yes
-      --enable-xlib-xrender=yes
-    ]
-
-    # if build.with? "x11"
-    #   args << "--enable-xcb=yes" << "--enable-xlib=yes" << "--enable-xlib-xrender=yes"
-    # else
-    #   args << "--enable-xcb=no" << "--enable-xlib=no" << "--enable-xlib-xrender=no"
-    # end
-
     if build.head?
-      system "./autogen.sh", *args
-    else
-      system "./configure", *args
+      ENV["NOCONFIGURE"] = "1"
+      system "./autogen.sh"
     end
+
+    system "./configure", "--disable-dependency-tracking",
+                          "--prefix=#{prefix}",
+                          "--enable-gobject=yes",
+                          "--enable-svg=yes",
+                          "--enable-tee=yes",
+                          "--enable-quartz-image",
+                          "--enable-xcb=no",
+                          "--enable-xlib=no",
+                          "--enable-xlib-xrender=no"
     system "make", "install"
   end
 
