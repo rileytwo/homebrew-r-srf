@@ -39,9 +39,9 @@ class Cairo < Formula
                           "--enable-svg=yes",
                           "--enable-tee=yes",
                           "--enable-quartz-image",
-                          "--enable-xcb=no",
-                          "--enable-xlib=no",
-                          "--enable-xlib-xrender=no"
+                          "--enable-xcb=yes",
+                          "--enable-xlib=yes",
+                          "--enable-xlib-xrender=yes"
     system "make", "install"
   end
 
